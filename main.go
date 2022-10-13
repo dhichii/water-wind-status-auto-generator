@@ -47,3 +47,27 @@ func main() {
 
 	go updateData()
 }
+
+func evaluateWater(status int) string {
+	if status > 8 {
+		return "bahaya"
+	}
+
+	if status > 5 {
+		return "siaga"
+	}
+
+	return "aman"
+}
+
+func evaluateWind(status int) string {
+	if status > 15 {
+		return "bahaya"
+	}
+
+	if status > 7 {
+		return "siaga"
+	}
+
+	return "aman"
+}
