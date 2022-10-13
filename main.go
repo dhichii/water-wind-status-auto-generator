@@ -17,6 +17,16 @@ type Data struct {
 	Status `json:"status"`
 }
 
+type Level struct {
+	Water string
+	Wind  string
+}
+
+type Response struct {
+	Status
+	Level
+}
+
 func updateData() {
 	for {
 		var data = Data{Status: Status{}}
