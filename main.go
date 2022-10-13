@@ -2,9 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"net/http"
 	"time"
 )
 
@@ -56,6 +59,30 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	go updateData()
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		tpl, _ := template.ParseFiles("index.html")
+
+		b, err := ioutil.ReadFile("data.json")
+		if err != nil {
+			fmt.Fprint(w, "read file error")
+			return
+		}
+
+		var data = Data{Status: Status{}}
+		if err := json.Unmarshal(b, &data); err != nil {
+			fmt.Fprint(w, "marshalling error")
+		}
+
+		var response = Response{Status: data.Status}
+		response.Level.Water = evaluateWater(data.Status.Water)
+		response.Level.Wind = evaluateWind(data.Status.Wind)
+
+		tpl.ExecuteTemplate(w, "index.html", response)
+
+	})
+
+	http.ListenAndServe(":8080", nil)
 }
 
 func evaluateWater(status int) string {
