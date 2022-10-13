@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="5" />
+    <title>Water & Wind Status</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Righteous", cursive;
+        min-height: 100vh;
+        background-color: #a9c9ff;
+      }
+      .container {
+        max-width: 100vw;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 35px;
+        margin: 0 auto;
+        padding: 40px 0;
+      }
+      .card {
+        position: relative;
+        width: 300px;
+        height: 400px;
+        margin: 0 auto;
+        color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+      }
+      .face {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+      .content h1 {
+        font-size: 5em;
+        margin-bottom: 0;
+      }
+      .content h2 {
+        text-transform: capitalize;
+        margin-top: 8px;
+        font-size: 2em;
+      }
+      .aman {background-color: #4FCC2C;}
+      .siaga {background-color: #FFAF11;}
+      .bahaya {background-color: #FF392B;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card {{.Level.Water}}">
+        <div class="face">
+          <h1>Water</h1>
+          <div class="content">
+            <h1>{{.Status.Water}}m</h1>
+            <h2>{{.Level.Water}}</h2>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card {{.Level.Wind}}">
+        <div class="face">
+          <h1>Wind</h1>
+          <div class="content">
+            <h1>{{.Status.Wind}}m/s</h1>
+            <h2>{{.Level.Wind}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
